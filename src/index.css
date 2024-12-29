@@ -1,0 +1,46 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: #212121;
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+#nav {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#picture {
+  background-image: url("./assets/bacon.webp");
+  height: 300px;
+  width: 300px;
+}
+
+#body {
+  width: 75%;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+@media (max-width: 768px) {
+  #body {
+    width: 100%; 
+  }
+}
