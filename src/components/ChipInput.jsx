@@ -9,11 +9,12 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import FlatwareIcon from "@mui/icons-material/Flatware";
+import axios from "axios";
 
 const ChipInput = () => {
 	const [input, setInput] = useState("");
 	const [chips, setChips] = useState([]);
-
+	const apiKey = process.env.SPOON_API_KEY;
 	// Handle input change
 	const handleInputChange = (e) => {
 		setInput(e.target.value);
@@ -38,6 +39,17 @@ const ChipInput = () => {
 		);
 	};
 
+	const findRecipe = () => {
+		var ingredients = chips.join(",+");
+		axios
+			.get(
+				`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&ignorePantry=true`
+			)
+			.catch(() => {
+				console.log("NOPE!");
+			});
+	};
+
 	return (
 		<Box
 			sx={{
@@ -53,6 +65,9 @@ const ChipInput = () => {
 				value={input}
 				onChange={handleInputChange}
 				onKeyDown={(e) => {
+					if (/\d/.test(e.key)) {
+						e.preventDefault();
+					}
 					if (e.key === "Enter") {
 						handleAddChip();
 					}
@@ -61,7 +76,7 @@ const ChipInput = () => {
 				margin="normal"
 				sx={{
 					"& .MuiInputBase-input": {
-						paddingLeft: "10px", // Adjust the left padding to move the placeholder
+						paddingLeft: "10px",
 					},
 					"& .MuiInput-root": {
 						backgroundColor: "#2f2f2f",
@@ -70,19 +85,19 @@ const ChipInput = () => {
 						height: "50px",
 					},
 					"& .MuiInput-input": {
-						color: "#b4b4b4", // Set the text color (font color) inside the input field
+						color: "#b4b4b4",
 					},
 					"& .MuiInput-root:before": {
-						borderBottom: "none", // Remove default underline
+						borderBottom: "none",
 					},
 					"& .MuiInput-root:after": {
-						borderBottom: "none", // Remove underline on focus
+						borderBottom: "none",
 					},
 					"& .MuiInput-root.Mui-focused": {
-						boxShadow: "none", // Remove focus outline (if any)
+						boxShadow: "none",
 					},
 					"& .MuiInput-root:hover:not(.Mui-disabled):before": {
-						borderBottom: "none", // Remove underline on hover
+						borderBottom: "none",
 					},
 				}}
 				InputProps={{
@@ -119,9 +134,9 @@ const ChipInput = () => {
 					color: "#b4b4b4",
 					backgroundColor: "#2f2f2f",
 					borderColor: "#b4b4b4",
-					textTransform: "capitalize"
+					textTransform: "capitalize",
 				}}>
-				feed me
+				let's eat
 			</Button>
 		</Box>
 	);

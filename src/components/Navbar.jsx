@@ -25,7 +25,7 @@ const Navbar = () => {
 		<div id="nav">
 			<div id="picture"></div>
 			<ThemeProvider theme={theme}>
-				<Typography variant="h1" sx={{color: "#b4b4b4", textAlign: "center", marginTop: "10px"}}>watcha got?</Typography>
+				<Typography variant="h1" sx={{color: "#ececec", textAlign: "center", marginTop: "10px"}}>watcha got?</Typography>
 			</ThemeProvider>
 			<ChipInput />
 		</div>
