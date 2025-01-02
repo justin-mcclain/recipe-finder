@@ -43,6 +43,15 @@ body {
   margin: 0 auto;
 }
 
+#results-container {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
 @media (max-width: 768px) {
   #body {
     width: 100%; 

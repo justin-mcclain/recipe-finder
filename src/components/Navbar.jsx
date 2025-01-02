@@ -8,6 +8,7 @@ import {
 	ThemeProvider,
 } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
 
 const Navbar = () => {
 	let theme = createTheme({
@@ -23,7 +24,11 @@ const Navbar = () => {
 	theme = responsiveFontSizes(theme);
 	return (
 		<div id="nav">
-			<div id="picture"></div>
+			<Box
+			component={Link}
+			to="/" id="picture">
+				
+			</Box>
 			<ThemeProvider theme={theme}>
 				<Typography variant="h1" sx={{color: "#ececec", textAlign: "center", marginTop: "10px"}}>watcha got?</Typography>
 			</ThemeProvider>

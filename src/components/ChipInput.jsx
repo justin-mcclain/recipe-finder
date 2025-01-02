@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
 	TextField,
 	Chip,
@@ -10,17 +10,18 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import FlatwareIcon from "@mui/icons-material/Flatware";
 import axios from "axios";
+import { AppContext } from "../App";
+import { Link } from "react-router-dom";
 
 const ChipInput = () => {
+	const { setReturnedRecipes, returnedRecipes } = useContext(AppContext);
 	const [input, setInput] = useState("");
 	const [chips, setChips] = useState([]);
-	const apiKey = process.env.SPOON_API_KEY;
-	// Handle input change
+	const apiKey = process.env.REACT_APP_SPOON_API_KEY;
 	const handleInputChange = (e) => {
 		setInput(e.target.value);
 	};
 
-	// Handle creating a new chip
 	const handleAddChip = () => {
 		if (input.trim() !== "") {
 			if (!chips.includes(input.trim())) {
@@ -32,23 +33,28 @@ const ChipInput = () => {
 		}
 	};
 
-	// Handle deleting a chip
 	const handleDeleteChip = (chipToDelete) => {
 		setChips((prevChips) =>
 			prevChips.filter((chip) => chip !== chipToDelete)
 		);
 	};
 
-	const findRecipe = () => {
+	const findRecipe = async () => {
 		var ingredients = chips.join(",+");
-		axios
+		const results = await axios
 			.get(
-				`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&ignorePantry=true`
+				`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${ingredients}&ignorePantry=true`
 			)
 			.catch(() => {
 				console.log("NOPE!");
 			});
+		setReturnedRecipes(results.data);
+		console.log(returnedRecipes);
+		console.log(results);
 	};
+
+	useEffect(() => {
+	}, [returnedRecipes]);
 
 	return (
 		<Box
@@ -83,6 +89,8 @@ const ChipInput = () => {
 						borderRadius: "12px",
 						padding: "0 8px",
 						height: "50px",
+						boxShadow:
+							"rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
 					},
 					"& .MuiInput-input": {
 						color: "#b4b4b4",
@@ -121,6 +129,7 @@ const ChipInput = () => {
 							margin: 0.5,
 							color: "#b4b4b4",
 							backgroundColor: "#2f2f2f",
+							textTransform: "capitalize",
 						}}
 					/>
 				))}
@@ -135,7 +144,12 @@ const ChipInput = () => {
 					backgroundColor: "#2f2f2f",
 					borderColor: "#b4b4b4",
 					textTransform: "capitalize",
-				}}>
+					boxShadow:
+						"rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+				}}
+				component={Link}
+				to="/results"
+				onClick={findRecipe}>
 				let's eat
 			</Button>
 		</Box>
