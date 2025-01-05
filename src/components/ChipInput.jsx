@@ -67,7 +67,6 @@ const ChipInput = () => {
 			<TextField
 				variant="standard"
 				placeholder="Enter food"
-				color="white"
 				value={input}
 				onChange={handleInputChange}
 				onKeyDown={(e) => {
@@ -127,7 +126,7 @@ const ChipInput = () => {
 						onDelete={() => handleDeleteChip(chip)}
 						sx={{
 							margin: 0.5,
-							color: "#b4b4b4",
+							color: "#ECECEC",
 							backgroundColor: "#2f2f2f",
 							textTransform: "capitalize",
 						}}
@@ -140,7 +139,6 @@ const ChipInput = () => {
 				endIcon={<FlatwareIcon />}
 				sx={{
 					marginTop: "20px",
-					color: "#b4b4b4",
 					backgroundColor: "#2f2f2f",
 					borderColor: "#b4b4b4",
 					textTransform: "capitalize",

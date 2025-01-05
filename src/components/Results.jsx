@@ -1,36 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { AppContext } from "../App";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { createTheme, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 const Results = () => {
-	const { returnedRecipes, selectedRecipe, setSelectedRecipe } =
+	const { returnedRecipes } =
 		useContext(AppContext);
-        const apiKey = process.env.REACT_APP_SPOON_API_KEY;
-	let theme = createTheme({
-		typography: {
-			h5: {
-				fontSize: ".5rem",
-			},
-			body1: {
-				fontSize: "1rem",
-			},
-		},
-	});
-    const getRecipe = async (id) => {
-        const recipe = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${apiKey}`)
-        .catch(() => {
-            console.log("NOPE! RECIPE")
-        });
-        setSelectedRecipe(recipe.data);
-        console.log(selectedRecipe);
-        console.log(recipe);
-    }
-        useEffect(() => {
-        }, [selectedRecipe]);
 	return (
 		<div id="results-container">
 			{returnedRecipes.map((result, index) => (
@@ -38,7 +15,7 @@ const Results = () => {
 					sx={{
 						display: "flex",
 						flexDirection: "row",
-						width: 350,
+						width: 310,
 						height: 215,
 						backgroundColor: "#2f2f2f",
 						borderRadius: "8px",
@@ -70,13 +47,13 @@ const Results = () => {
 						}}>
 						<Typography
 							variant="subtitle2"
-							sx={{ color: "#b4b4b4", fontWeight: "bold" }}>
+							sx={{ fontWeight: "bold" }}>
 							{result.title}
 						</Typography>
 						<Box>
 							<Typography
 								variant="caption"
-								sx={{ color: "#b4b4b4" }}>
+								>
 								Missing Ingredients:{" "}
 								{result.missedIngredients.length}
 							</Typography>
@@ -84,12 +61,10 @@ const Results = () => {
 								variant="contained"
 								sx={{
 									backgroundColor: "#5e5e5e",
-									color: "#fff",
 									width: "100%",
 									marginTop: "12px",
 									marginBottom: "5px",
 								}}
-                                onClick={() => getRecipe(result.id)}
                                 component={Link}
                                 to={`/recipe/${result.id}`}>
                                     Learn More

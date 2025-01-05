@@ -20,7 +20,7 @@ body {
   width: 100%;
 }
 
-#nav {
+.containers {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -35,7 +35,7 @@ body {
   background-repeat: no-repeat;
   height: 250px;
   width: 100%;
-  margin: 5px 0px;
+  margin: 5px 0px 10px 0px;
 }
 
 #body {
@@ -56,4 +56,16 @@ body {
   #body {
     width: 100%; 
   }
+}
+
+a {
+  color: #b4b4b4;
+}
+
+.recipe-containers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 }
